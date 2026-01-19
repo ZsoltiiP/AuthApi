@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WeatherForecast.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles =("admin,student"))]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -18,6 +20,7 @@ namespace WeatherForecast.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = ("admin,student"))]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
